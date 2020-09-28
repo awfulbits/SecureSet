@@ -1,0 +1,10 @@
+html, body {
+  height: 100%; }
+
+#main-view {
+  height: 100%;
+  color: white;
+  background-color: black;
+  padding: 16px; }
+
+/*# sourceMappingURL=style.css.map */
