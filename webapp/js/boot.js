@@ -1,8 +1,13 @@
-// var bootView = document.createElement("DIV");
-// bootView.id = "boot-view"
-// document.getElementById("main-view").appendChild(bootView);
 var bootView = setView("boot-view");
 bootmsgInterval();
+
+function setView(view) {
+    var component = document.createElement("DIV");
+    component.id = view;
+    document.getElementById("landing-view").appendChild(component);
+
+    return component;
+}
 
 function bootmsgInterval() {
     var messages = "";
@@ -40,9 +45,9 @@ function loginInterval() {
             } else {
                 clearInterval(ivl);
                 setTimeout(function() {
-                    document.querySelector("#main-view").innerHTML = "Wooooooow";
+                    document.querySelector("#landing-view").remove();
+                    window.location.href = "home.php";
                 }, 500);
-                // setView("home-view");
             }
         }, 300);
     }, 800);

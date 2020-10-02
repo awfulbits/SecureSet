@@ -1,6 +1,6 @@
 UNAME_OS := $(shell lsb_release -si)
-BUILD_DEPS := ruby
-GEM_DEPS := sass sass-listen
+BUILD_DEPS := npm
+NPM_DEPS := sass
 
 
 build:
@@ -12,15 +12,15 @@ watch:
 install_build_deps:
 ifeq (${UNAME_OS},Arch)
 	@yay -Sy ${BUILD_DEPS}
-	@gem install ${GEM_DEPS}
+	@npm install ${NPM_DEPS}
 else ifeq (${UNAME_OS},Pop)
 	@apt update
 	@apt install ${BUILD_DEPS}
-	@gem install ${GEM_DEPS}
+	@npm install ${NPM_DEPS}
 else ifeq (${UNAME_OS},Ubuntu)
 	@apt update
 	@apt install ${BUILD_DEPS}
-	@gem install ${GEM_DEPS}
+	@npm install ${NPM_DEPS}
 endif
 
 deploy:
