@@ -1,12 +1,50 @@
+<?php
+    session_start();
+    if (isset($_SESSION['user']) != "")
+    {
+        header("Location: home.php");
+    }
+    include_once 'connect.php';
+    if (isset($_POST['sca']))
+    {
+        $username = trim($_POST['username']);
+        $pass = trim($_POST['pass']);
+        $password = hash('sha256', $pass);
+        $query = "select userid, username, pass from people where username=?";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$username]);
+        $count = $stmt->rowCount();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($count == 1 && $row['pass'] == $password)
+        {
+            $_SESSION['user'] = $row['userid'];
+            header("Location: profile.php");
+        }
+        else
+        {
+            $message = "Invalid Login";
+        }
+        $_SESSION['message'] = $message;
+    }
+?>
+
 <?php include('header.php'); ?>
+
+    <?php
+    if(isset($message)) {
+        echo $message;
+    }
+    ?>
+    </h1></p>
+
     <div id="home-view" class="container-fluid">
         <div id="login" class="container">
-            <form class="text-center border border-light p-5" action="#!">
+            <form class="text-center border border-light p-5" action="login.php" method="post">
                 <p class="h4 mb-4">Sign in</p>
             
-                <input type="text" id="defaultLoginFormUsername" class="form-control mb-4" placeholder="Username">
+                <input type="text" name="username" id="defaultLoginFormUsername" class="form-control mb-4" placeholder="Username">
             
-                <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+                <input type="password" name="pass" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
             
                 <!-- <div class="d-flex justify-content-around">
                     <div>

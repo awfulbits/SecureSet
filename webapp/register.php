@@ -1,32 +1,33 @@
 <?php
-session_start();
-if (isset($_SESSION['user']) != "")
-{
-    header("Location: profile.php");
-}
-include_once 'connect.php';
+    session_start();
+    if (isset($_SESSION['user']) != "")
+    {
+        header("Location: profile.php");
+    }
+    include_once 'connect.php';
 
-if (isset($_POST['sca'])) {
-    $username = trim($_POST['username']);
-    $pass = trim($_POST['pass']);
-    $phone = trim($_POST['phone']);
-    $password = hash('sha256', $pass);
-    $query = "insert into people(username,pass,phone) values(?, ?, ?)";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([$username, $password, $phone]);
-    $rowsAdded = $stmt->rowCount();
-    if ($rowsAdded == 1)
-    {
-        $message = "Success! Proceed to login";
-        unset($pass);
-        unset($phone);
-        header("Location: login.php");
+    if (isset($_POST['sca'])) {
+        $username = trim($_POST['username']);
+        $pass = trim($_POST['pass']);
+        $phone = trim($_POST['phone']);
+        $password = hash('sha256', $pass);
+        $query = "insert into people(username,pass,phone) values(?, ?, ?)";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute([$username, $password, $phone]);
+        $rowsAdded = $stmt->rowCount();
+        if ($rowsAdded == 1)
+        {
+            $message = "Success! Proceed to login";
+            unset($pass);
+            unset($phone);
+            header("Location: login.php");
+        }
+        else
+        {
+            $message = "Failed! For some reason";
+        }
     }
-    else
-    {
-        $message = "Failed! For some reason";
-    }
-} ?>
+?>
 
 <?php include('header.php'); ?>
     <div id="home-view" class="container-fluid">
