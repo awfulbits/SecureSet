@@ -2,7 +2,7 @@
     session_start();
     if (isset($_SESSION['user']) != "")
     {
-        header("Location: home.php");
+        header("Location: profile.php");
     }
     include_once 'connect.php';
     if (isset($_POST['sca']))
@@ -17,6 +17,13 @@
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($count == 1 && $row['pass'] == $password)
         {
+            // try {
+            //     include('send-sms.php');
+            // } catch (\Throwable $th) {
+            //     // throw $th;
+            //     $message = $th;
+            // }
+            // include('send-sms.php');
             $_SESSION['user'] = $row['userid'];
             header("Location: profile.php");
         }
@@ -35,7 +42,6 @@
         echo $message;
     }
     ?>
-    </h1></p>
 
     <div id="home-view" class="container-fluid">
         <div id="login" class="container">
@@ -58,12 +64,12 @@
                     </div>
                 </div> -->
             
-                <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+                <button class="btn btn-info btn-block my-4" name="sca" type="submit" value="Login to Account">Sign in</button>
 
                 <p>Not a member?
                     <a href="register.php">Register</a>
                 </p>
-            
+
                 <!-- <p>or sign in with:</p>
                 <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
                 <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>

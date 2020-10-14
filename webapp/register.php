@@ -45,23 +45,23 @@
                 </div> -->
 
                 <input type="text" name="username" id="defaultRegisterFormUsername" class="form-control mb-4" placeholder="Username">
-
-                <input type="password" name="pass" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-                <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-                    At least 64 characters, including 2 digits
-                </small>
+            
+                <input type="password" name="pass" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                <p id="defaultRegisterFormPasswordHelpBlock" class="form-text mb-4">
+                    At least 16 characters, including 2 digits
+                </p>
 
                 <input type="text" name="phone" id="defaultRegisterFormPhone" class="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock">
-                <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                <p id="defaultRegisterFormPhoneHelpBlock" class="form-text mb-4">
                     Optional - for two step authentication
-                </small>
+                </p>
 
                 <!-- <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="defaultRegisterFormNewsletter">
                     <label class="custom-control-label" for="defaultRegisterFormNewsletter">Subscribe to our newsletter</label>
                 </div> -->
 
-                <button class="btn btn-info my-4 btn-block" type="submit" name="sca" value="Create Account">Sign up</button>
+                <button class="btn btn-info my-4 btn-block" id="register-submit" type="submit" name="sca" value="Create Account">Sign up</button>
 
                 <!-- <p>or sign up with:</p>
                 <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
@@ -81,4 +81,5 @@
             </form>
         </div>
     </div>
+<script src="/js/register.js" type="text/javascript"></script>
 <?php include('footer.php'); ?>

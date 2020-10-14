@@ -27,4 +27,8 @@ html, body {
   max-width: 540px;
 }
 
+#defaultRegisterFormPasswordHelpBlock {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */
