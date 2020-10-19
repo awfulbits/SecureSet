@@ -1,7 +1,6 @@
 <?php
     session_start();
-    if (isset($_SESSION['user']) != "")
-    {
+    if (isset($_SESSION['user']) != "") {
         header("Location: profile.php");
     }
     include_once 'connect.php';
@@ -11,25 +10,37 @@
         $pass = trim($_POST['pass']);
         $phone = trim($_POST['phone']);
         $password = hash('sha256', $pass);
-        $query = "insert into people(username,pass,phone) values(?, ?, ?)";
+        $query = "SELECT * FROM people WHERE username='$username'";
         $stmt = $pdo->prepare($query);
-        $stmt->execute([$username, $password, $phone]);
-        $rowsAdded = $stmt->rowCount();
-        if ($rowsAdded == 1)
-        {
-            $message = "Success! Proceed to login";
-            unset($pass);
-            unset($phone);
-            header("Location: login.php");
-        }
-        else
-        {
-            $message = "Failed! For some reason";
+        $stmt->execute();
+        $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($userRow['username'] == $username) {
+            $message = "Username exits";
+        } else {
+            $query = "insert into people(username,pass,phone) values(?, ?, ?)";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$username, $password, $phone]);
+            $rowsAdded = $stmt->rowCount();
+            if ($rowsAdded == 1) {
+                $message = "Success! Proceed to login";
+                unset($pass);
+                unset($phone);
+                header("Location: login.php");
+            } else {
+                $message = "Failed! For some reason";
+            }
         }
     }
 ?>
 
 <?php include('header.php'); ?>
+
+    <?php
+    if(isset($message)) {
+        echo $message;
+    }
+    ?>
+
     <div id="home-view" class="container-fluid">
         <div id="register" class="container">
             <form class="text-center border border-light p-5" action="register.php" method="post">
